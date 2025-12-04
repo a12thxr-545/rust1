@@ -1,0 +1,477 @@
+    Checking pochinki v0.1.0 (/Users/arthur/serverrustc/pochinki)
+error[E0583]: file not found for module `crew_participation`
+ --> src/infrastructure/database/repositories/mod.rs:2:1
+  |
+2 | pub mod crew_participation;
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = help: to create the module `crew_participation`, create file "src/infrastructure/database/repositories/crew_participation.rs" or "src/infrastructure/database/repositories/crew_participation/mod.rs"
+  = note: if there is a `mod crew_participation` elsewhere in the crate already, import it with `use crate::...` instead
+
+error: `self` parameter is only allowed in associated functions
+  --> src/infrastructure/database/repositories/mission_management.rs:23:14
+   |
+23 | async fn add(&self, add_mission_entity: AddMissionEntity) -> Result<i32> {
+   |              ^^^^^ not semantically valid as function parameter
+   |
+   = note: associated functions are those in `impl` or `trait` definitions
+
+error: `self` parameter is only allowed in associated functions
+  --> src/infrastructure/database/repositories/mission_management.rs:33:15
+   |
+33 | async fn edit(&self, mission_id: i32, edit_mission_entity: EditMissionEntity) -> Result<i32> {
+   |               ^^^^^ not semantically valid as function parameter
+   |
+   = note: associated functions are those in `impl` or `trait` definitions
+
+error: `self` parameter is only allowed in associated functions
+  --> src/infrastructure/database/repositories/mission_management.rs:45:17
+   |
+45 | async fn remove(&self, mission_id: i32, chief_id: i32) -> Result<()> {
+   |                 ^^^^^ not semantically valid as function parameter
+   |
+   = note: associated functions are those in `impl` or `trait` definitions
+
+error[E0432]: unresolved import `crate::infrastructure::argon2`
+ --> src/application/use_cases/brawlers.rs:2:28
+  |
+2 | use crate::infrastructure::argon2::hash;
+  |                            ^^^^^^ could not find `argon2` in `infrastructure`
+
+error[E0432]: unresolved import `crate::domain::value_objects::crew_membership`
+ --> src/application/use_cases/crew_operation.rs:8:35
+  |
+8 | use crate::domain::value_objects::crew_membership::CrewMemberShips;
+  |                                   ^^^^^^^^^^^^^^^ could not find `crew_membership` in `value_objects`
+
+error[E0432]: unresolved import `crate::domain::value_objects::crew_membership`
+  --> src/application/use_cases/test_utils.rs:20:5
+   |
+20 |     crew_membership::CrewMemberShips,
+   |     ^^^^^^^^^^^^^^^ could not find `crew_membership` in `value_objects`
+
+error[E0432]: unresolved import `crate::domain::value_objects::crew_membership`
+ --> src/domain/repositories/crew_operation.rs:8:35
+  |
+8 | use crate::domain::value_objects::crew_membership::CrewMemberShips;
+  |                                   ^^^^^^^^^^^^^^^ could not find `crew_membership` in `value_objects`
+
+error[E0432]: unresolved import `mockall`
+ --> src/domain/repositories/brawlers.rs:3:5
+  |
+3 | use mockall::automock;
+  |     ^^^^^^^ use of unresolved module or unlinked crate `mockall`
+  |
+  = help: if you wanted to use a crate named `mockall`, use `cargo add mockall` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved import `mockall`
+ --> src/domain/repositories/crew_operation.rs:3:5
+  |
+3 | use mockall::automock;
+  |     ^^^^^^^ use of unresolved module or unlinked crate `mockall`
+  |
+  = help: if you wanted to use a crate named `mockall`, use `cargo add mockall` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved import `mockall`
+ --> src/domain/repositories/mission_management.rs:3:5
+  |
+3 | use mockall::automock;
+  |     ^^^^^^^ use of unresolved module or unlinked crate `mockall`
+  |
+  = help: if you wanted to use a crate named `mockall`, use `cargo add mockall` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved import `mockall`
+ --> src/domain/repositories/mission_operation.rs:3:5
+  |
+3 | use mockall::automock;
+  |     ^^^^^^^ use of unresolved module or unlinked crate `mockall`
+  |
+  = help: if you wanted to use a crate named `mockall`, use `cargo add mockall` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved import `mockall`
+ --> src/domain/repositories/mission_viewing.rs:3:5
+  |
+3 | use mockall::automock;
+  |     ^^^^^^^ use of unresolved module or unlinked crate `mockall`
+  |
+  = help: if you wanted to use a crate named `mockall`, use `cargo add mockall` to add it to your `Cargo.toml`
+
+error[E0432]: unresolved imports `crate::application::use_cases::test_utils::MockMissionOperationRepository`, `crate::application::use_cases::test_utils::MockMissionViewingRepository`
+ --> src/application/use_cases/mission_operation_test.rs:7:5
+  |
+7 |     MockMissionOperationRepository, MockMissionViewingRepository,
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ no `MockMissionViewingRepository` in `application::use_cases::test_utils`
+  |     |
+  |     no `MockMissionOperationRepository` in `application::use_cases::test_utils`
+  |
+help: a similar name exists in the module
+  |
+7 -     MockMissionOperationRepository, MockMissionViewingRepository,
+7 +     MissionOperationRepository, MockMissionViewingRepository,
+  |
+help: a similar name exists in the module
+  |
+7 -     MockMissionOperationRepository, MockMissionViewingRepository,
+7 +     MockMissionOperationRepository, MissionViewingRepository,
+  |
+
+error[E0432]: unresolved import `mockall`
+ --> src/application/use_cases/test_utils.rs:1:5
+  |
+1 | use mockall::mock;
+  |     ^^^^^^^ use of unresolved module or unlinked crate `mockall`
+  |
+  = help: if you wanted to use a crate named `mockall`, use `cargo add mockall` to add it to your `Cargo.toml`
+
+error[E0412]: cannot find type `RegisterBrawlerModel` in this scope
+  --> src/application/use_cases/brawlers.rs:19:62
+   |
+19 |     pub async fn register(&self, mut register_brawler_model: RegisterBrawlerModel) -> Result<i32> {
+   |                                                              ^^^^^^^^^^^^^^^^^^^^ not found in this scope
+   |
+help: consider importing this struct
+   |
+ 1 + use crate::domain::value_objects::brawler_model::RegisterBrawlerModel;
+   |
+
+error[E0405]: cannot find trait `Display` in this scope
+  --> src/domain/value_objects/mission_statuses.rs:12:6
+   |
+12 | impl Display for MissionStatuses {
+   |      ^^^^^^^ not found in this scope
+   |
+help: consider importing this trait
+   |
+ 1 + use std::fmt::Display;
+   |
+
+error[E0412]: cannot find type `MissionModel` in this scope
+  --> src/domain/entities/missions.rs:19:48
+   |
+19 |     pub fn to_model(&self, crew_count: i64) -> MissionModel {
+   |                                                ^^^^^^^^^^^^ not found in this scope
+   |
+help: consider importing this struct
+   |
+ 1 + use crate::domain::value_objects::mission_model::MissionModel;
+   |
+
+error[E0422]: cannot find struct, variant or union type `MissionModel` in this scope
+  --> src/domain/entities/missions.rs:20:9
+   |
+20 |         MissionModel {
+   |         ^^^^^^^^^^^^ not found in this scope
+   |
+help: consider importing this struct
+   |
+ 1 + use crate::domain::value_objects::mission_model::MissionModel;
+   |
+
+error[E0412]: cannot find type `RegisterBrawlerEntity` in this scope
+ --> src/domain/repositories/brawlers.rs:8:55
+  |
+8 |     async fn register(&self, register_brawler_entity: RegisterBrawlerEntity) -> Result<i32>;
+  |                                                       ^^^^^^^^^^^^^^^^^^^^^ not found in this scope
+  |
+help: consider importing this struct
+  |
+1 + use crate::domain::entities::brawlers::RegisterBrawlerEntity;
+  |
+
+error[E0412]: cannot find type `BrawlerEntity` in this scope
+ --> src/domain/repositories/brawlers.rs:9:66
+  |
+9 |     async fn find_by_username(&self, username: String) -> Result<BrawlerEntity>;
+  |                                                                  ^^^^^^^^^^^^^ not found in this scope
+  |
+help: consider importing this struct
+  |
+1 + use crate::domain::entities::brawlers::BrawlerEntity;
+  |
+
+error[E0412]: cannot find type `AddMissionEntity` in this scope
+ --> src/domain/repositories/mission_management.rs:8:45
+  |
+8 |     async fn add(&self, add_mission_entity: AddMissionEntity) -> Result<i32>;
+  |                                             ^^^^^^^^^^^^^^^^ not found in this scope
+  |
+help: consider importing this struct
+  |
+1 + use crate::domain::entities::missions::AddMissionEntity;
+  |
+
+error[E0412]: cannot find type `EditMissionEntity` in this scope
+ --> src/domain/repositories/mission_management.rs:9:64
+  |
+9 |     async fn edit(&self, mission_id: i32, edit_mission_entity: EditMissionEntity) -> Result<i32>;
+  |                                                                ^^^^^^^^^^^^^^^^^ not found in this scope
+  |
+help: consider importing this struct
+  |
+1 + use crate::domain::entities::missions::EditMissionEntity;
+  |
+
+error[E0412]: cannot find type `MissionEntity` in this scope
+ --> src/domain/repositories/mission_viewing.rs:8:60
+  |
+8 |     async fn view_detail(&self, mission_id: i32) -> Result<MissionEntity>;
+  |                                                            ^^^^^^^^^^^^^ not found in this scope
+  |
+help: consider importing this struct
+  |
+1 + use crate::domain::entities::missions::MissionEntity;
+  |
+
+error[E0412]: cannot find type `MissionFilter` in this scope
+ --> src/domain/repositories/mission_viewing.rs:9:34
+  |
+9 |     async fn get(&self, filter: &MissionFilter) -> Result<Vec<MissionEntity>>;
+  |                                  ^^^^^^^^^^^^^ not found in this scope
+  |
+help: consider importing this struct
+  |
+1 + use crate::domain::value_objects::mission_filter::MissionFilter;
+  |
+
+error[E0412]: cannot find type `MissionEntity` in this scope
+ --> src/domain/repositories/mission_viewing.rs:9:63
+  |
+9 |     async fn get(&self, filter: &MissionFilter) -> Result<Vec<MissionEntity>>;
+  |                                                               ^^^^^^^^^^^^^ not found in this scope
+  |
+help: consider importing this struct
+  |
+1 + use crate::domain::entities::missions::MissionEntity;
+  |
+
+error[E0412]: cannot find type `PgPoolSquad` in this scope
+ --> src/infrastructure/database/repositories/mission_management.rs:8:18
+  |
+8 |     db_pool: Arc<PgPoolSquad>,
+  |                  ^^^^^^^^^^^ not found in this scope
+  |
+help: consider importing this type alias
+  |
+1 + use crate::infrastructure::database::postgresql_connection::PgPoolSquad;
+  |
+
+error[E0412]: cannot find type `PgPoolSquad` in this scope
+  --> src/infrastructure/database/repositories/mission_management.rs:12:29
+   |
+12 |     pub fn new(db_pool: Arc<PgPoolSquad>) -> Self {
+   |                             ^^^^^^^^^^^ not found in this scope
+   |
+help: consider importing this type alias
+   |
+ 1 + use crate::infrastructure::database::postgresql_connection::PgPoolSquad;
+   |
+
+error[E0405]: cannot find trait `MissionManagementRepository` in this scope
+  --> src/infrastructure/database/repositories/mission_management.rs:18:6
+   |
+18 | impl MissionManagementRepository for MisssionManagementPostgres {
+   |      ^^^^^^^^^^^^^^^^^^^^^^^^^^^ not found in this scope
+   |
+help: consider importing this trait
+   |
+ 1 + use crate::domain::repositories::mission_management::MissionManagementRepository;
+   |
+
+error[E0412]: cannot find type `AddMissionEntity` in this scope
+  --> src/infrastructure/database/repositories/mission_management.rs:19:45
+   |
+19 |     async fn add(&self, add_mission_entity: AddMissionEntity) -> Result<i32> {}
+   |                                             ^^^^^^^^^^^^^^^^ not found in this scope
+   |
+help: consider importing this struct
+   |
+ 1 + use crate::domain::entities::missions::AddMissionEntity;
+   |
+
+error[E0412]: cannot find type `EditMissionEntity` in this scope
+  --> src/infrastructure/database/repositories/mission_management.rs:20:64
+   |
+20 |     async fn edit(&self, mission_id: i32, edit_mission_entity: EditMissionEntity) -> Result<i32> {}
+   |                                                                ^^^^^^^^^^^^^^^^^ not found in this scope
+   |
+help: consider importing this struct
+   |
+ 1 + use crate::domain::entities::missions::EditMissionEntity;
+   |
+
+error[E0412]: cannot find type `AddMissionEntity` in this scope
+  --> src/infrastructure/database/repositories/mission_management.rs:23:41
+   |
+23 | async fn add(&self, add_mission_entity: AddMissionEntity) -> Result<i32> {
+   |                                         ^^^^^^^^^^^^^^^^ not found in this scope
+   |
+help: consider importing this struct
+   |
+ 1 + use crate::domain::entities::missions::AddMissionEntity;
+   |
+
+error[E0425]: cannot find function `insert_into` in this scope
+  --> src/infrastructure/database/repositories/mission_management.rs:26:22
+   |
+26 |         let result = insert_into(missions::table)
+   |                      ^^^^^^^^^^^ not found in this scope
+   |
+help: consider importing this function
+   |
+ 1 + use diesel::insert_into;
+   |
+
+error[E0412]: cannot find type `EditMissionEntity` in this scope
+  --> src/infrastructure/database/repositories/mission_management.rs:33:60
+   |
+33 | async fn edit(&self, mission_id: i32, edit_mission_entity: EditMissionEntity) -> Result<i32> {
+   |                                                            ^^^^^^^^^^^^^^^^^ not found in this scope
+   |
+help: consider importing this struct
+   |
+ 1 + use crate::domain::entities::missions::EditMissionEntity;
+   |
+
+error[E0433]: failed to resolve: use of undeclared type `MissionStatuses`
+  --> src/infrastructure/database/repositories/mission_management.rs:38:41
+   |
+38 |             .filter(missions::status.eq(MissionStatuses::Open.to_string()))
+   |                                         ^^^^^^^^^^^^^^^ use of undeclared type `MissionStatuses`
+   |
+help: consider importing this enum
+   |
+ 1 + use crate::domain::value_objects::mission_statuses::MissionStatuses;
+   |
+
+error[E0433]: failed to resolve: use of undeclared type `MissionStatuses`
+  --> src/infrastructure/database/repositories/mission_management.rs:50:41
+   |
+50 |             .filter(missions::status.eq(MissionStatuses::Open.to_string()))
+   |                                         ^^^^^^^^^^^^^^^ use of undeclared type `MissionStatuses`
+   |
+help: consider importing this enum
+   |
+ 1 + use crate::domain::value_objects::mission_statuses::MissionStatuses;
+   |
+
+error[E0603]: struct import `RegisterBrawlerEntity` is private
+  --> src/application/use_cases/test_utils.rs:21:20
+   |
+21 |     brawler_model::RegisterBrawlerEntity,
+   |                    ^^^^^^^^^^^^^^^^^^^^^ private struct import
+   |
+note: the struct import `RegisterBrawlerEntity` is defined here...
+  --> src/domain/value_objects/brawler_model.rs:1:5
+   |
+ 1 | use crate::domain::entities::brawlers::RegisterBrawlerEntity;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+note: ...and refers to the struct `RegisterBrawlerEntity` which is defined here
+  --> src/domain/entities/brawlers.rs:17:1
+   |
+17 | pub struct RegisterBrawlerEntity {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ you could import this directly
+help: import `RegisterBrawlerEntity` directly
+   |
+21 -     brawler_model::RegisterBrawlerEntity,
+21 +     domain::entities::brawlers::RegisterBrawlerEntity,
+   |
+
+error[E0603]: struct import `RegisterBrawlerEntity` is private
+  --> src/infrastructure/database/repositories/brawlers.rs:8:50
+   |
+ 8 | use crate::domain::value_objects::brawler_model::RegisterBrawlerEntity;
+   |                                                  ^^^^^^^^^^^^^^^^^^^^^ private struct import
+   |
+note: the struct import `RegisterBrawlerEntity` is defined here...
+  --> src/domain/value_objects/brawler_model.rs:1:5
+   |
+ 1 | use crate::domain::entities::brawlers::RegisterBrawlerEntity;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+note: ...and refers to the struct `RegisterBrawlerEntity` which is defined here
+  --> src/domain/entities/brawlers.rs:17:1
+   |
+17 | pub struct RegisterBrawlerEntity {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ you could import this directly
+help: import `RegisterBrawlerEntity` directly
+   |
+ 8 - use crate::domain::value_objects::brawler_model::RegisterBrawlerEntity;
+ 8 + use domain::entities::brawlers::RegisterBrawlerEntity;
+   |
+
+warning: unused import: `crate::domain::entities::missions::MissionEntity`
+  --> src/application/use_cases/mission_operation_test.rs:5:5
+   |
+ 5 | use crate::domain::entities::missions::MissionEntity;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+help: if this is a test module, consider adding a `#[cfg(test)]` to the containing module
+  --> src/application/use_cases/mod.rs:12:1
+   |
+12 | pub(crate) mod mission_operation_test;
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `std::sync::Arc`
+ --> src/application/use_cases/test_utils.rs:2:5
+  |
+2 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+
+warning: unused import: `anyhow::Result`
+ --> src/application/use_cases/test_utils.rs:3:5
+  |
+3 | use anyhow::Result;
+  |     ^^^^^^^^^^^^^^
+
+warning: unused import: `async_trait::async_trait`
+ --> src/application/use_cases/test_utils.rs:4:5
+  |
+4 | use async_trait::async_trait;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `crew_operation::CrewOperationRepository`, `mission_management::MissionManagementRepository`, `mission_operation::MissionOperationRepository`, `mission_viewing::MissionViewingRepository`, and `transaction_provider::TransactionProvider`
+  --> src/application/use_cases/test_utils.rs:7:5
+   |
+ 7 |     mission_operation::MissionOperationRepository,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 8 |     mission_viewing::MissionViewingRepository,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 9 |     crew_operation::CrewOperationRepository,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+10 |     transaction_provider::TransactionProvider,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+11 |     mission_management::MissionManagementRepository,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `brawlers::BrawlerEntity` and `missions::MissionEntity`
+  --> src/application/use_cases/test_utils.rs:14:5
+   |
+14 |     missions::MissionEntity,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+15 |     brawlers::BrawlerEntity,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `AddMissionModel`, `EditMissionModel`, and `mission_filter::MissionFilter`
+  --> src/application/use_cases/test_utils.rs:18:5
+   |
+18 |     mission_filter::MissionFilter,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+19 |     mission_model::{AddMissionModel, EditMissionModel},
+   |                     ^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^
+
+warning: unused imports: `ConnectionManager` and `PooledConnection`
+  --> src/application/use_cases/test_utils.rs:23:20
+   |
+23 | use diesel::r2d2::{ConnectionManager, PooledConnection};
+   |                    ^^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^
+
+warning: unused import: `diesel::PgConnection`
+  --> src/application/use_cases/test_utils.rs:24:5
+   |
+24 | use diesel::PgConnection;
+   |     ^^^^^^^^^^^^^^^^^^^^
+
+Some errors have detailed explanations: E0405, E0412, E0422, E0425, E0432, E0433, E0583, E0603.
+For more information about an error, try `rustc --explain E0405`.
+warning: `pochinki` (lib) generated 9 warnings
+error: could not compile `pochinki` (lib) due to 38 previous errors; 9 warnings emitted

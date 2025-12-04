@@ -1,0 +1,279 @@
+    Checking pochinki v0.1.0 (/Users/arthur/serverrustc/pochinki)
+warning: unused import: `AddMissionEntity`
+  --> src/infrastructure/database/repositories/mission_management.rs:11:41
+   |
+11 | use crate::domain::entities::missions::{AddMissionEntity, EditMissionEntity};
+   |                                         ^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+error[E0107]: enum takes 2 generic arguments but 1 generic argument was supplied
+   --> src/application/use_cases/brawlers.rs:20:87
+    |
+ 20 |     pub async fn register(&self, mut register_brawler_model: RegisterBrawlerModel) -> Result<i32> {
+    |                                                                                       ^^^^^^ --- supplied 1 generic argument
+    |                                                                                       |
+    |                                                                                       expected 2 generic arguments
+    |
+note: enum defined here, with 2 generic parameters: `T`, `E`
+   --> /Users/arthur/.rustup/toolchains/stable-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/result.rs:548:10
+    |
+548 | pub enum Result<T, E> {
+    |          ^^^^^^ -  -
+help: add missing generic argument
+    |
+ 20 |     pub async fn register(&self, mut register_brawler_model: RegisterBrawlerModel) -> Result<i32, E> {
+    |                                                                                                 +++
+
+error[E0061]: this method takes 1 argument but 2 arguments were supplied
+  --> src/application/use_cases/mission_management.rs:37:14
+   |
+37 |             .add(chief_id, add_mission_model) // Fix: passing correct arguments based on trait definition
+   |              ^^^ --------  ----------------- unexpected argument #2 of type `AddMissionModel`
+   |                  |
+   |                  expected `EditMissionEntity`, found `i32`
+   |
+note: method defined here
+  --> src/domain/repositories/mission_management.rs:11:14
+   |
+11 |     async fn add(&self, add_mission_entity: EditMissionEntity) -> Result<i32>;
+   |              ^^^        ------------------
+help: remove the extra argument
+   |
+37 -             .add(chief_id, add_mission_model) // Fix: passing correct arguments based on trait definition
+37 +             .add(/* EditMissionEntity */) // Fix: passing correct arguments based on trait definition
+   |
+
+error[E0061]: this method takes 2 arguments but 3 arguments were supplied
+  --> src/application/use_cases/mission_management.rs:61:14
+   |
+61 |             .edit(mission_id, chief_id, edit_mission_model)
+   |              ^^^^             --------  ------------------ unexpected argument #3 of type `EditMissionModel`
+   |                               |
+   |                               expected `EditMissionEntity`, found `i32`
+   |
+note: method defined here
+  --> src/domain/repositories/mission_management.rs:12:14
+   |
+12 |     async fn edit(&self, mission_id: i32, edit_mission_entity: EditMissionEntity) -> Result<i32>;
+   |              ^^^^                         -------------------
+help: remove the extra argument
+   |
+61 -             .edit(mission_id, chief_id, edit_mission_model)
+61 +             .edit(mission_id, /* EditMissionEntity */)
+   |
+
+warning: unused variable: `db_pool`
+  --> src/infrastructure/http/http_serv.rs:38:48
+   |
+38 | pub async fn start(config: Arc<DotEnvyConfig>, db_pool: Arc<PgPoolSquad>) -> Result<()> {
+   |                                                ^^^^^^^ help: if this is intentional, prefix it with an underscore: `_db_pool`
+   |
+   = note: `#[warn(unused_variables)]` on by default
+
+error[E0277]: the trait bound `NaiveDateTime: serde::Serialize` is not satisfied
+    --> src/domain/value_objects/mission_model.rs:7:24
+     |
+   7 | #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+     |                        ^^^^^^^^^ the trait `Serialize` is not implemented for `NaiveDateTime`
+...
+  15 |     pub created_at: NaiveDateTime,
+     |     --- required by a bound introduced by this call
+     |
+     = note: for local types consider adding `#[derive(serde::Serialize)]` to your `NaiveDateTime` type
+     = note: for types from other crates check whether the crate offers a `serde` feature flag
+     = help: the following other types implement trait `Serialize`:
+               &'a T
+               &'a mut T
+               ()
+               (T,)
+               (T0, T1)
+               (T0, T1, T2)
+               (T0, T1, T2, T3)
+               (T0, T1, T2, T3, T4)
+             and 137 others
+note: required by a bound in `brawler_model::_::_serde::ser::SerializeStruct::serialize_field`
+    --> /Users/arthur/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_core-1.0.228/src/ser/mod.rs:1917:21
+     |
+1915 |     fn serialize_field<T>(&mut self, key: &'static str, value: &T) -> Result<(), Self::Error>
+     |        --------------- required by a bound in this associated function
+1916 |     where
+1917 |         T: ?Sized + Serialize;
+     |                     ^^^^^^^^^ required by this bound in `SerializeStruct::serialize_field`
+     = note: this error originates in the derive macro `Serialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: the trait bound `NaiveDateTime: serde::Deserialize<'de>` is not satisfied
+    --> src/domain/value_objects/mission_model.rs:15:21
+     |
+  15 |     pub created_at: NaiveDateTime,
+     |                     ^^^^^^^^^^^^^ the trait `Deserialize<'_>` is not implemented for `NaiveDateTime`
+     |
+     = note: for local types consider adding `#[derive(serde::Deserialize)]` to your `NaiveDateTime` type
+     = note: for types from other crates check whether the crate offers a `serde` feature flag
+     = help: the following other types implement trait `Deserialize<'de>`:
+               &'a [u8]
+               &'a serde_json::raw::RawValue
+               &'a std::path::Path
+               &'a str
+               ()
+               (T,)
+               (T0, T1)
+               (T0, T1, T2)
+             and 153 others
+note: required by a bound in `next_element`
+    --> /Users/arthur/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_core-1.0.228/src/de/mod.rs:1771:12
+     |
+1769 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1770 |     where
+1771 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+
+error[E0277]: the trait bound `NaiveDateTime: serde::Deserialize<'de>` is not satisfied
+    --> src/domain/value_objects/mission_model.rs:16:21
+     |
+  16 |     pub updated_at: NaiveDateTime,
+     |                     ^^^^^^^^^^^^^ the trait `Deserialize<'_>` is not implemented for `NaiveDateTime`
+     |
+     = note: for local types consider adding `#[derive(serde::Deserialize)]` to your `NaiveDateTime` type
+     = note: for types from other crates check whether the crate offers a `serde` feature flag
+     = help: the following other types implement trait `Deserialize<'de>`:
+               &'a [u8]
+               &'a serde_json::raw::RawValue
+               &'a std::path::Path
+               &'a str
+               ()
+               (T,)
+               (T0, T1)
+               (T0, T1, T2)
+             and 153 others
+note: required by a bound in `next_element`
+    --> /Users/arthur/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_core-1.0.228/src/de/mod.rs:1771:12
+     |
+1769 |     fn next_element<T>(&mut self) -> Result<Option<T>, Self::Error>
+     |        ------------ required by a bound in this associated function
+1770 |     where
+1771 |         T: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `SeqAccess::next_element`
+
+error[E0277]: the trait bound `NaiveDateTime: serde::Deserialize<'de>` is not satisfied
+    --> src/domain/value_objects/mission_model.rs:15:21
+     |
+  15 |     pub created_at: NaiveDateTime,
+     |                     ^^^^^^^^^^^^^ the trait `Deserialize<'_>` is not implemented for `NaiveDateTime`
+     |
+     = note: for local types consider adding `#[derive(serde::Deserialize)]` to your `NaiveDateTime` type
+     = note: for types from other crates check whether the crate offers a `serde` feature flag
+     = help: the following other types implement trait `Deserialize<'de>`:
+               &'a [u8]
+               &'a serde_json::raw::RawValue
+               &'a std::path::Path
+               &'a str
+               ()
+               (T,)
+               (T0, T1)
+               (T0, T1, T2)
+             and 153 others
+note: required by a bound in `next_value`
+    --> /Users/arthur/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_core-1.0.228/src/de/mod.rs:1916:12
+     |
+1914 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1915 |     where
+1916 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+
+error[E0277]: the trait bound `NaiveDateTime: serde::Deserialize<'de>` is not satisfied
+    --> src/domain/value_objects/mission_model.rs:16:21
+     |
+  16 |     pub updated_at: NaiveDateTime,
+     |                     ^^^^^^^^^^^^^ the trait `Deserialize<'_>` is not implemented for `NaiveDateTime`
+     |
+     = note: for local types consider adding `#[derive(serde::Deserialize)]` to your `NaiveDateTime` type
+     = note: for types from other crates check whether the crate offers a `serde` feature flag
+     = help: the following other types implement trait `Deserialize<'de>`:
+               &'a [u8]
+               &'a serde_json::raw::RawValue
+               &'a std::path::Path
+               &'a str
+               ()
+               (T,)
+               (T0, T1)
+               (T0, T1, T2)
+             and 153 others
+note: required by a bound in `next_value`
+    --> /Users/arthur/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_core-1.0.228/src/de/mod.rs:1916:12
+     |
+1914 |     fn next_value<V>(&mut self) -> Result<V, Self::Error>
+     |        ---------- required by a bound in this associated function
+1915 |     where
+1916 |         V: Deserialize<'de>,
+     |            ^^^^^^^^^^^^^^^^ required by this bound in `MapAccess::next_value`
+
+error[E0277]: the trait bound `NaiveDateTime: serde::Deserialize<'de>` is not satisfied
+  --> src/domain/value_objects/mission_model.rs:7:35
+   |
+ 7 | #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+   |                                   ^^^^^^^^^^^ the trait `Deserialize<'_>` is not implemented for `NaiveDateTime`
+   |
+   = note: for local types consider adding `#[derive(serde::Deserialize)]` to your `NaiveDateTime` type
+   = note: for types from other crates check whether the crate offers a `serde` feature flag
+   = help: the following other types implement trait `Deserialize<'de>`:
+             &'a [u8]
+             &'a serde_json::raw::RawValue
+             &'a std::path::Path
+             &'a str
+             ()
+             (T,)
+             (T0, T1)
+             (T0, T1, T2)
+           and 153 others
+note: required by a bound in `brawler_model::_::_serde::__private228::de::missing_field`
+  --> /Users/arthur/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/de.rs:26:8
+   |
+24 | pub fn missing_field<'de, V, E>(field: &'static str) -> Result<V, E>
+   |        ------------- required by a bound in this function
+25 | where
+26 |     V: Deserialize<'de>,
+   |        ^^^^^^^^^^^^^^^^ required by this bound in `missing_field`
+   = note: this error originates in the derive macro `Deserialize` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0560]: struct `EditMissionEntity` has no field named `status`
+  --> src/domain/value_objects/mission_model.rs:56:13
+   |
+56 |             status: self.status.clone(),
+   |             ^^^^^^ `EditMissionEntity` does not have this field
+   |
+   = note: all struct fields are already assigned
+
+error[E0277]: the trait bound `&EditMissionEntity: diesel::Insertable<schema::missions::table>` is not satisfied
+   --> src/infrastructure/database/repositories/mission_management.rs:30:21
+    |
+ 30 |             .values(&add_mission_entity)
+    |              ------ ^^^^^^^^^^^^^^^^^^^ the trait `diesel::Insertable<schema::missions::table>` is not implemented for `&EditMissionEntity`
+    |              |
+    |              required by a bound introduced by this call
+    |
+    = help: the following other types implement trait `diesel::Insertable<T>`:
+              `&'a (T, T1)` implements `diesel::Insertable<Tab>`
+              `&'a (T, T1, T2)` implements `diesel::Insertable<Tab>`
+              `&'a (T, T1, T2, T3)` implements `diesel::Insertable<Tab>`
+              `&'a (T, T1, T2, T3, T4)` implements `diesel::Insertable<Tab>`
+              `&'a (T, T1, T2, T3, T4, T5)` implements `diesel::Insertable<Tab>`
+              `&'a (T, T1, T2, T3, T4, T5, T6)` implements `diesel::Insertable<Tab>`
+              `&'a (T, T1, T2, T3, T4, T5, T6, T7)` implements `diesel::Insertable<Tab>`
+              `&'a (T, T1, T2, T3, T4, T5, T6, T7, T8)` implements `diesel::Insertable<Tab>`
+            and 124 others
+note: required by a bound in `IncompleteInsertStatement::<T, Op>::values`
+   --> /Users/arthur/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/diesel-2.3.3/src/query_builder/insert_statement/mod.rs:122:12
+    |
+120 |     pub fn values<U>(self, records: U) -> InsertStatement<T, U::Values, Op>
+    |            ------ required by a bound in this associated function
+121 |     where
+122 |         U: Insertable<T>,
+    |            ^^^^^^^^^^^^^ required by this bound in `IncompleteInsertStatement::<T, Op>::values`
+
+Some errors have detailed explanations: E0061, E0107, E0277, E0560.
+For more information about an error, try `rustc --explain E0061`.
+warning: `pochinki` (lib) generated 2 warnings
+error: could not compile `pochinki` (lib) due to 11 previous errors; 2 warnings emitted
